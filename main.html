@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TeAmoAmor</title>
+    <style>
+        body{
+            background-color: rgb(0, 0, 0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Hola amor<i class='fa fa-heart text-danger '></i></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    Desde el primer momento en que te vi, supe que había
+                    encontrado a alguien especial. No solo porque me cautivó
+                    tu sonrisa, esa que ilumina mi día y llena mi corazón de
+                    alegría, sino también por la manera en que tus ojos brillan
+                    cuando me miras. En ellos veo un mundo lleno de amor y
+                    posibilidades, un lugar donde deseo perderme
+                    eternamente.
+                </div>
+
+                <div class="modal-footer">
+                    <p style="position:absolute;left:15px"><small class='text-muted'>Att. Tu novio<i class='fa fa-heart text-danger'></i> </small></p>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <button type="button" style="position:absolute;right:200px;bottom:300px" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#feelings"> <i class='fa fa-heart '></i>Dale Click Aquí</button>
+
+    <div class="modal fade" id="feelings">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+
+                <div class="modal-body">
+                    El tacto dulce de tu mano junto a la mía es una sensación
+                    que jamás quiero dejar de experimentar. Es como si, al
+                    entrelazar nuestros dedos, el tiempo se detuviera y todo en
+                    el mundo tuviera sentido. Es un recordatorio constante de
+                    que estamos juntos en este viaje, apoyándonos y
+                    amándonos en cada paso del camino.
+                    Admiro tu forma de ser, esa combinación perfecta de fuerza
+                    y ternura, de sabiduría y curiosidad. Eres una persona
+                    increíble, y cada día me siento más afortunado de poder
+                    compartir mi vida contigo. Tus besos son el bálsamo que
+                    cura cualquier herida, y tus abrazos, el refugio donde
+                    encuentro paz y consuelo.
+                    Amo cada momento que pasamos juntos, cada risa
+                    compartida, cada secreto susurrado. Amo cómo haces que
+                    el mundo sea un lugar mejor solo con tu presencia. Gracias
+                    por ser mi compañera, mi confidente y mi amor.
+                    <i class=' text-danger fa fa-heart'></i><i class=' text-danger fa fa-heart'></i><i class=' text-danger fa fa-heart'></i><a href='flower.html'>Click aquí amor</a>
+                </div>
+
+                <div class="modal-footer">
+                    <p style="position:absolute;left:15px"><small class='text-muted'>Att. Tu novio<i class='fa fa-heart text-danger'></i> </small></p>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+    $('#myModal').modal('show');
+
+    var c = document.getElementById("canvas");
+    var a = c.getContext("2d");
+
+    var w = c.width;
+    var h = c.height;
+
+    var hearts = [];
+
+    function Heart(x, y, size, direction, alpha) {
+        this.hue = (Math.random() * 25) | 0 + 10;
+        this.x = x;
+        this.y = y;
+        this.size = (Math.random() * 60) | 0 + 50;
+        this.direction = "u";
+        this.a = 1;
+    }
+
+    c.onmousemove = function(e) {
+        var mouseX, mouseY;
+
+        if (e.offsetX) {
+            mouseX = e.offsetX;
+            mouseY = e.offsetY;
+        } else if (e.layerX) {
+            mouseX = e.layerX;
+            mouseY = e.layerY;
+        }
+
+        hearts.push(new Heart(mouseX - 4, mouseY - 4));
+    };
+
+    window.setInterval(function() {
+
+        a.fillStyle = "#fff";
+        a.fillRect(0, 0, w, h);
+
+        if (hearts.length === 0) return;
+
+        hearts = hearts.filter(function(val) {
+            return val.y >= 0 && val.a >= 0;
+        });
+
+        hearts.forEach(function(heart) {
+
+            heart.y = heart.y + 2;
+            heart.a = heart.a - 0.01;
+
+            if (heart.direction === "u") {
+                heart.size = heart.size + 5;
+                if (heart.size >= 100) heart.direction = "d";
+            } else {
+                heart.size = heart.size - 5;
+                if (heart.size <= 10) heart.direction = "u";
+            }
+
+            a.save();
+            a.font = heart.size + 'px Arial';
+            a.fillStyle = "hsla(" + heart.hue + ",100%,50%," + heart.a + ")";
+            a.fillText('♥', heart.x, heart.y);
+            a.restore();
+
+        });
+    }, 17);
+</script>
+
+</html>
